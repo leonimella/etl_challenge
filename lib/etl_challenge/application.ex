@@ -12,9 +12,10 @@ defmodule EtlChallenge.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: EtlChallenge.PubSub},
       # Start the Endpoint (http/https)
-      EtlChallengeWeb.Endpoint
+      EtlChallengeWeb.Endpoint,
       # Start a worker by calling: EtlChallenge.Worker.start_link(arg)
       # {EtlChallenge.Worker, arg}
+      {EtlChallenge.Processor, []}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
