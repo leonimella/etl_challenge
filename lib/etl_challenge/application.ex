@@ -7,8 +7,6 @@ defmodule EtlChallenge.Application do
 
   def start(_type, _args) do
     children = [
-      # Start the Ecto repository
-      EtlChallenge.Repo,
       # Start the Telemetry supervisor
       EtlChallengeWeb.Telemetry,
       # Start the PubSub system

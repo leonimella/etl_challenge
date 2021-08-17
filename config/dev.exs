@@ -1,14 +1,5 @@
 use Mix.Config
 
-# Configure your database
-config :etl_challenge, EtlChallenge.Repo,
-  username: "postgres",
-  password: "postgres",
-  database: "etl_challenge_dev",
-  hostname: "localhost",
-  show_sensitive_data_on_connection_error: true,
-  pool_size: 10
-
 # For development, we disable any cache and enable
 # debugging and code reloading.
 #
