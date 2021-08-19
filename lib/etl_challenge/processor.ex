@@ -4,16 +4,11 @@ defmodule EtlChallenge.Processor do
   """
   use GenServer
 
-  alias EtlChallenge.Client
-
   def start_link(state \\ []) do
     GenServer.start_link(__MODULE__, state, name: __MODULE__)
   end
 
   def init(_stack) do
-    require Logger
-    Logger.info("Response -> #{inspect Client.get_numbers(Integer.to_string(1))}")
-
     {:ok, %{}}
   end
 
