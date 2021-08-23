@@ -1,9 +1,13 @@
 <section>
   <h1>ETL Challenge</h1>
 </section>
-
+<style> ul, li {list-style: none; padding: 0; margin: 0 0 5px; } </style>
 <section class="row">
   <article class="column">
-
+    <ul>
+      <%= for number <- get_numbers() do %>
+        <li><%= number %></li>
+      <% end %>
+    </ul>
   </article>
 </section>

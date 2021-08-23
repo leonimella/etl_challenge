@@ -20,7 +20,7 @@ defmodule EtlChallenge.Application do
       EtlChallengeWeb.Endpoint,
       # Start a worker by calling: EtlChallenge.Worker.start_link(arg)
       # {EtlChallenge.Worker, arg}
-      {EtlChallenge.Processor, %{sorted?: false, numbers: []}}
+      {EtlChallenge.Orchestrator, []}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
