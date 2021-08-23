@@ -3,6 +3,8 @@ defmodule EtlChallenge.Client do
 
   require Logger
 
+  alias EtlChallenge.Processor
+
   plug Tesla.Middleware.BaseUrl, "http://challenge.dienekes.com.br"
   plug Tesla.Middleware.JSON
 
@@ -12,11 +14,18 @@ defmodule EtlChallenge.Client do
 
   defp request_loop(_page, _continue? = false) do
     Logger.info("Reached final page")
+    Logger.info("Initiating sort number process")
+    Processor.sort_numbers()
   end
 
   defp request_loop(page, _continue? = true) do
     continue? = request_next_page?(get_numbers(Integer.to_string(page)))
-    request_loop(page + 1, continue?)
+    # request_loop(page + 1, continue?)
+    if page < 6 do
+      request_loop(page + 1, continue?)
+    else
+      request_loop(page, false)
+    end
   end
 
   defp request_next_page?([_|_]), do: true
@@ -26,7 +35,7 @@ defmodule EtlChallenge.Client do
     Logger.info("Requesting page #{inspect page}")
     case get("/api/numbers?page=" <> page) do
       {:ok, %{body: %{"numbers" => numbers}}} ->
-        # Push to GenServer
+        Processor.add_numbers(numbers)
         numbers
       {:ok, %{body: %{"error" => _error}}} ->
         Logger.warn("API call error at page #{inspect page}, trying again")
