@@ -21,11 +21,12 @@ defmodule EtlChallenge.Client do
   defp request_loop(page, _continue? = true) do
     continue? = request_next_page?(get_numbers(Integer.to_string(page)))
     # request_loop(page + 1, continue?)
-    if page < 6 do
+    if page < 500 do
       request_loop(page + 1, continue?)
     else
       request_loop(page, false)
     end
+    # request_loop(page, false)
   end
 
   defp request_next_page?([_|_]), do: true
