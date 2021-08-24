@@ -23,7 +23,18 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser or
 
 ### Startup with Docker
 ```sh
-docker-compose up -d && docker-compose logs -f --tail=0
+docker-compose up -d && docker-compose logs -f --tail=all
+```
+
+To stop the application
+
+```sh
+docker-compose stop
+```
+
+And to remove the container
+```sh
+docker-compose rm -f
 ```
 
 ## Understanding the Results
@@ -44,7 +55,7 @@ mix test
 
 ### Testing in docker:
 ```sh
-docker-compose run --rm app mix test
+ docker-compose -f docker-compose.test.yml up
 ```
 
 ## Points of improvements

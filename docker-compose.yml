@@ -3,8 +3,8 @@ services:
   app:
     image: elixir:1.12-alpine
     restart: unless-stopped
-    port:
+    ports:
       - "4000:4000"
     volumes:
-      - ./:/workers
-    command: mix do deps.get, compile, phx.server
+      - ./:/app
+    command: ash -c "cd app && mix do local.hex --force, local.rebar --force, deps.get, compile, phx.server"
