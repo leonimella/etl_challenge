@@ -12,7 +12,7 @@ Redis -> ETS
   * Install Node.js dependencies with `npm install` inside the `assets` directory
 
 ## Startup
-Start **Phoenix** as usual
+Go back to the application's root directory and start **Phoenix** as usual
 ```sh
 mix phx.server
 ```
@@ -22,6 +22,9 @@ The process of fetch the API and handle the results will start with the **Phoeni
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser or alternatively you can get the result in JSON format by accessing [`http://localhost:4000/api`](http://localhost:4000/api)
 
 ### Startup with Docker
+> You might want to run `npm install` on your machine first, this will compile the CSS file that style the website
+
+Start the application inside the Docker container
 ```sh
 docker-compose up -d && docker-compose logs -f --tail=all
 ```
