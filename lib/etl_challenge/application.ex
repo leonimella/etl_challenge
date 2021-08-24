@@ -5,11 +5,9 @@ defmodule EtlChallenge.Application do
 
   use Application
 
-  @request_initial_page 1
-
   def start(_type, _args) do
     # Start Client request loop
-    Task.async(fn -> EtlChallenge.Client.init_request_loop(@request_initial_page) end)
+    Task.async(fn -> EtlChallenge.Client.init_request_loop() end)
 
     children = [
       # Start the Telemetry supervisor

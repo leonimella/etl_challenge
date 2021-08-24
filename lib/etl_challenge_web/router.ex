@@ -19,10 +19,11 @@ defmodule EtlChallengeWeb.Router do
     get "/", PageController, :index
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", EtlChallengeWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", EtlChallengeWeb do
+    pipe_through :api
+
+    get "/", ApiController, :index
+  end
 
   # Enables LiveDashboard only for development
   #

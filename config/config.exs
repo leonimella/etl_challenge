@@ -29,6 +29,11 @@ config :phoenix, :json_library, Jason
 # Tesla Adapter
 config :tesla, adapter: Tesla.Adapter.Hackney
 
+# ETL Challenge
+config :etl_challenge,
+  base_url: "http://challenge.dienekes.com.br",
+  intial_page: 1
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"

@@ -7,7 +7,7 @@ defmodule EtlChallenge.Quicksort do
   @ets_table_name :quicksort
 
   def start(list) do
-    Logger.info("Initializing sort number process")
+    Logger.info("Initializing sort process")
     :ets.insert(@ets_table_name, {:iteration, 0})
 
     list
@@ -21,7 +21,7 @@ defmodule EtlChallenge.Quicksort do
     Logger.info("pivot -> #{inspect pivot}")
     smaller_elements = for x <- sublist, x < pivot, do: x
     larget_elements = for x <- sublist, x >= pivot, do: x
-    :ets.insert(@ets_table_name, {:iteration, get_interation() + 1})
+    :ets.insert(@ets_table_name, {:iteration, get_iteration() + 1})
 
     do_quicksort(List.pop_at(smaller_elements, random_element_index(smaller_elements)))
     ++ [pivot] ++
@@ -43,8 +43,8 @@ defmodule EtlChallenge.Quicksort do
 
   # Helper Functions
   def get_table_name(), do: @ets_table_name
-  def get_interation() do
+  def get_iteration() do
     :ets.lookup(@ets_table_name, :iteration)[:iteration]
   end
-  def reset_privot_interation(), do: :ets.insert(@ets_table_name, {:iteration, 0})
+  def reset_privot_iteration(), do: :ets.insert(@ets_table_name, {:iteration, 0})
 end

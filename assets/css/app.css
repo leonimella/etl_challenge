@@ -1,36 +1,76 @@
-/* This file is for your main application css. */
-@import "./phoenix.css";
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
 
-/* Alerts and form errors */
-.alert {
-  padding: 15px;
-  margin-bottom: 20px;
-  border: 1px solid transparent;
-  border-radius: 4px;
+body {
+  font-family: sans-serif;
+  font-size: 14px;
+  background: #222;
+  color: #fefefe;
 }
-.alert-info {
-  color: #31708f;
-  background-color: #d9edf7;
-  border-color: #bce8f1;
+
+h1 {
+  margin: 60px 0 0;
+  text-align: center;
+  font-size: 3.5em;
 }
-.alert-warning {
-  color: #8a6d3b;
-  background-color: #fcf8e3;
-  border-color: #faebcc;
+
+h2 {
+  margin: 30px 0 20px;
+  text-align: center;
+  font-size: 1.5em;
 }
-.alert-danger {
-  color: #a94442;
-  background-color: #f2dede;
-  border-color: #ebccd1;
+
+ul, li {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 5px;
 }
-.alert p {
-  margin-bottom: 0;
+
+.flex-child {
+  width: 40%;
 }
-.alert:empty {
-  display: none;
+
+.container {
+  display: flex;
+  justify-content: center;
+  max-width: 1080px;
+  margin: 60px auto 0;
 }
-.invalid-feedback {
-  color: #a94442;
-  display: block;
-  margin: -1rem 0 2rem;
+
+.process-status {
+  margin: 0 0 20px;
+}
+
+.process-status span {
+  padding: 5px;
+  border: 1px solid #fefefe;
+  border-radius: 2px;
+  font-size: 1.1em;
+}
+
+.process-status span span{
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  color: #f8e29b;
+  font-weight: 700;
+}
+
+.process-status span span.completed{
+  color: #9bf89b;
+}
+
+.list {
+  padding: 30px;
+  border-radius: 3px;
+  background-color: #444;
+  text-align: center;
+}
+
+.list li {
+  margin: 0 0 10px;
+  font-size: 1.2em;
 }

@@ -20,10 +20,10 @@ defmodule EtlChallenge.Orchestrator do
   end
 
   def handle_call(:purge, _from, _state) do
-    :ets.insert(@ets_table_name, {:status, "purged"})
+    :ets.insert(@ets_table_name, {:status, :purged})
     :ets.insert(@ets_table_name, {:sorted, false})
     :ets.insert(@ets_table_name, {:size, 0})
-    Quicksort.reset_privot_interation()
+    Quicksort.reset_privot_iteration()
 
     {:reply, :ok, []}
   end
@@ -33,15 +33,15 @@ defmodule EtlChallenge.Orchestrator do
   end
 
   def handle_cast({:sort_numbers, _}, state) do
-    :ets.insert(@ets_table_name, {:status, "sorting"})
+    :ets.insert(@ets_table_name, {:status, :sorting})
     new_state = Quicksort.start(state)
-    :ets.insert(@ets_table_name, {:status, "completed"})
+    :ets.insert(@ets_table_name, {:status, :completed})
     :ets.insert(@ets_table_name, {:sorted, true})
     {:noreply, new_state}
   end
 
   def handle_cast({:add_numbers, number_list}, state) do
-    :ets.insert(@ets_table_name, {:status, "processing"})
+    :ets.insert(@ets_table_name, {:status, :processing})
     :ets.insert(@ets_table_name, {:sorted, false})
     case :ets.lookup(@ets_table_name, :size) do
       [] ->
@@ -64,11 +64,11 @@ defmodule EtlChallenge.Orchestrator do
   def get_process_info() do
     %{
       size: :ets.lookup(@ets_table_name, :size)[:size],
-      sort: %{
-        status: :ets.lookup(@ets_table_name, :sorted)[:sorted],
-        pivot_interations: Quicksort.get_interation()
-      },
       status: :ets.lookup(@ets_table_name, :status)[:status],
+      sort_process: %{
+        status: :ets.lookup(@ets_table_name, :sorted)[:sorted],
+        pivot_iterations: Quicksort.get_iteration()
+      }
     }
   end
 end

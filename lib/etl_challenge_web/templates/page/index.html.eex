@@ -1,13 +1,26 @@
 <section>
   <h1>ETL Challenge</h1>
 </section>
-<style> ul, li {list-style: none; padding: 0; margin: 0 0 5px; } </style>
-<section class="row">
-  <article class="column">
-    <ul>
-      <%= for number <- get_numbers() do %>
-        <li><%= number %></li>
+
+<section class="container">
+  <article class="results flex-child">
+    <% process_info = get_process_info() %>
+    <% process_status = process_info.status %>
+    <p class="process-status">
+      <span>process_status: <span class="<%= process_status %>"><%= process_info.status %></span></span>
+      <span>list_size: <span class="<%= process_status %>"><%= process_info.size %></span></span>
+    </p>
+      <%= cond do %>
+        <%= process_info.status == :processing -> %>
+          <p>Fetching information from API...</p>
+        <% process_info.status == :sorting -> %>
+          <p>Sorting data. Pivot iterations <%= process_info.sort_process.pivot_iterations %></p>
+        <% process_info.status == :completed -> %>
+          <ul class="list">
+            <%= for number <- get_numbers() do %>
+              <li><%= number %></li>
+            <% end %>
+          </ul>
       <% end %>
-    </ul>
   </article>
 </section>
