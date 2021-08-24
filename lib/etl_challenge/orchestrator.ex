@@ -50,10 +50,13 @@ defmodule EtlChallenge.Orchestrator do
         :ets.insert(@ets_table_name, {:size, size + length(number_list)})
     end
 
-    {:noreply, state ++ number_list}
+    {:noreply, number_list ++ state}
   end
 
   # Helper functions
+  def add_numbers(number) when is_integer(number) do
+    GenServer.cast(__MODULE__, {:add_numbers, [number]})
+  end
   def add_numbers(number_list), do: GenServer.cast(__MODULE__, {:add_numbers, number_list})
   def sort_numbers(), do: GenServer.cast(__MODULE__, {:sort_numbers, nil})
   def get_numbers(), do: GenServer.call(__MODULE__, :get_numbers, :infinity)

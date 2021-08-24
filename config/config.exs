@@ -7,9 +7,6 @@
 # General application configuration
 use Mix.Config
 
-config :etl_challenge,
-  ecto_repos: [EtlChallenge.Repo]
-
 # Configures the endpoint
 config :etl_challenge, EtlChallengeWeb.Endpoint,
   url: [host: "localhost"],
