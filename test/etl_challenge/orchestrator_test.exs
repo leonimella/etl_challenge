@@ -5,7 +5,9 @@ defmodule EtlChallengeWeb.OrchestratorTest do
 
   doctest Orchestrator
 
-  setup do Orchestrator.purge() end
+  setup do
+    Orchestrator.purge()
+  end
 
   test "numbers get added to the current server state" do
     Orchestrator.add_numbers(unordered_numbers())
@@ -18,6 +20,7 @@ defmodule EtlChallengeWeb.OrchestratorTest do
     for n <- 1..4 do
       Orchestrator.add_numbers(n)
     end
+
     assert Orchestrator.get_numbers() == [4, 3, 2, 1]
   end
 

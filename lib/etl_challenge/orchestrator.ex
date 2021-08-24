@@ -43,9 +43,11 @@ defmodule EtlChallenge.Orchestrator do
   def handle_cast({:add_numbers, number_list}, state) do
     :ets.insert(@ets_table_name, {:status, :processing})
     :ets.insert(@ets_table_name, {:sorted, false})
+
     case :ets.lookup(@ets_table_name, :size) do
       [] ->
         :ets.insert(@ets_table_name, {:size, length(number_list)})
+
       [size: size] ->
         :ets.insert(@ets_table_name, {:size, size + length(number_list)})
     end
@@ -57,6 +59,7 @@ defmodule EtlChallenge.Orchestrator do
   def add_numbers(number) when is_integer(number) do
     GenServer.cast(__MODULE__, {:add_numbers, [number]})
   end
+
   def add_numbers(number_list), do: GenServer.cast(__MODULE__, {:add_numbers, number_list})
   def sort_numbers(), do: GenServer.cast(__MODULE__, {:sort_numbers, nil})
   def get_numbers(), do: GenServer.call(__MODULE__, :get_numbers, :infinity)
@@ -64,6 +67,7 @@ defmodule EtlChallenge.Orchestrator do
 
   # ETS Helper functions
   def get_table_name(), do: @ets_table_name
+
   def get_process_info() do
     %{
       size: :ets.lookup(@ets_table_name, :size)[:size],

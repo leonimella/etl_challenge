@@ -25,18 +25,21 @@ defmodule EtlChallenge.Client do
     request_loop(page + 1, continue?)
   end
 
-  defp request_next_page?([_|_]), do: true
+  defp request_next_page?([_ | _]), do: true
   defp request_next_page?([]), do: false
 
   defp get_numbers(page) do
     Logger.info("Requesting page #{page}")
+
     case get("/api/numbers?page=#{page}") do
       {:ok, %{body: %{"numbers" => numbers}}} ->
         Orchestrator.add_numbers(numbers)
         numbers
+
       {:ok, %{body: %{"error" => _error}}} ->
         Logger.warn("API call error on page #{page}, trying again")
         get_numbers(page)
+
       _ ->
         Logger.error("Unknow error. Stopping request_loop")
         []

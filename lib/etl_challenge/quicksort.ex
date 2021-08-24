@@ -17,19 +17,21 @@ defmodule EtlChallenge.Quicksort do
 
   defp do_quicksort({nil, _}), do: []
   defp do_quicksort({pivot, []}), do: [pivot]
+
   defp do_quicksort({pivot, sublist}) do
-    Logger.info("pivot -> #{inspect pivot}")
+    Logger.info("pivot -> #{inspect(pivot)}")
     smaller_elements = for x <- sublist, x < pivot, do: x
     larget_elements = for x <- sublist, x >= pivot, do: x
     :ets.insert(@ets_table_name, {:iteration, get_iteration() + 1})
 
-    do_quicksort(List.pop_at(smaller_elements, random_element_index(smaller_elements)))
-    ++ [pivot] ++
-    do_quicksort(List.pop_at(larget_elements, random_element_index(larget_elements)))
+    do_quicksort(List.pop_at(smaller_elements, random_element_index(smaller_elements))) ++
+      [pivot] ++
+      do_quicksort(List.pop_at(larget_elements, random_element_index(larget_elements)))
   end
 
   defp random_element_index(list) when length(list) < 3, do: 0
-  defp random_element_index([_|_] = list) do
+
+  defp random_element_index([_ | _] = list) do
     median =
       list
       |> Enum.take_random(3)
@@ -38,13 +40,16 @@ defmodule EtlChallenge.Quicksort do
         [a, b, c] when (b >= a and b <= c) or (b <= a and b >= c) -> b
         [_, _, c] -> c
       end
-    Enum.find_index(list, fn(x) -> x == median end)
+
+    Enum.find_index(list, fn x -> x == median end)
   end
 
   # Helper Functions
   def get_table_name(), do: @ets_table_name
+
   def get_iteration() do
     :ets.lookup(@ets_table_name, :iteration)[:iteration]
   end
+
   def reset_privot_iteration(), do: :ets.insert(@ets_table_name, {:iteration, 0})
 end
