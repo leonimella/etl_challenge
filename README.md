@@ -1,16 +1,30 @@
 # Etl Challenge
 This challenge consist on get a large amount of numbers from an API, roughly ~1000000 (one million) numbers, store it, sort after getting all the numbers and then presenting the results
 
+This application tries to leverage the Elixir ecosystem at is best, replacing external dependencies by Elixir/Erlang solutions, like:
+
+Postgres -> GenServer State
+
+Redis -> ETS
+
 ## Installation:
-  * Install dependencies and compile code `mix do deps.get, deps.compile`
+  * Install dependencies and compile code `mix do deps.get, compile`
   * Install Node.js dependencies with `npm install` inside the `assets` directory
 
 ## Startup
-Start **Phoenix** as usual `mix phx.server`.
+Start **Phoenix** as usual
+```sh
+mix phx.server
+```
 
 The process of fetch the API and handle the results will start with the **Phoenix** application and run asynchronously.
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser or alternatively you can get the result in JSON format by accessing [`http://localhost:4000/api`](http://localhost:4000/api)
+
+### Startup with Docker
+```sh
+docker-compose up -d && docker-compose logs -f --tail=0
+```
 
 ## Understanding the Results
 When you access the []() page (or JSON API) you will get a temporary result while the application is working to get all the data.
@@ -24,7 +38,14 @@ And then, finally, the result is ready to be presented. The status of the proces
 > ⚠️ **You will need to refresh the page to see the progress of the process. This application does not include a LiveView feature yet**
 
 ## Testing
-Just run `mix test` on your terminal, in the application root folder.
+```sh
+mix test
+```
+
+### Testing in docker:
+```sh
+docker-compose run --rm app mix test
+```
 
 ## Points of improvements
 ### Fetching data from API phase
